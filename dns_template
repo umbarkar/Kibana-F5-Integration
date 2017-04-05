@@ -1,0 +1,52 @@
+curl -XPUT localhost:9200/_template/dns.logs -d '
+{
+    "template" : "dns.logs*",
+    "settings" : {
+        "number_of_shards" : 4
+    },
+ "mappings": {
+         "logs": {
+            "properties": {
+               "@timestamp": {
+                  "type": "date",
+                  "format": "strict_date_optional_time||epoch_millis"
+               },
+               "host": {
+                  "type": "string"
+               },
+               "message": {
+                  "type": "string"
+               },
+               "client_ip": {
+                  "type": "ip"
+               },
+               "query_id": {
+                  "type": "string"
+               },
+               "syslog_hostname": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },              
+               "syslog_message": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "syslog_timestamp": {
+                  "type": "string"
+               }
+            }
+         }
+      }
+}'
