@@ -1,0 +1,152 @@
+curl -XPUT localhost:9200/_template/ddos.logs -d '
+{
+    "template" : "ddos.logs*",
+    "settings" : {
+        "number_of_shards" : 4
+    },
+ "mappings": {
+         "logs": {
+            "properties": {
+                              "@timestamp": {
+                  "type": "date",
+                  "format": "strict_date_optional_time||epoch_millis"
+               },
+               "@version": {
+                  "type": "string"
+               },
+               "action": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "attack_time": {
+                  "type": "string"
+               },
+               "dest_ip": {
+                  "type": "ip"
+               },
+               "dest_port": {
+                  "type": "string"
+               },
+               "dos_attack_event": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "dos_attack_id": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "dos_attack_name": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "f5_hostname": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "host": {
+                  "type": "string"
+               },
+               "message": {
+                  "type": "string"
+               },
+               "mgmt_ip": {
+                  "type": "ip"
+               },
+               "context": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "packets_dropped": {
+                  "type": "integer"
+               },
+               "packets_received": {
+                  "type": "integer"
+               },
+               "partition_name": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "path": {
+                  "type": "string"
+               },
+               "route_domain": {
+                  "type": "integer"
+               },
+               "severity": {
+                  "type": "integer"
+               },
+               "source_ip": {
+                  "type": "ip"
+               },
+               "source_port": {
+                  "type": "string"
+               },
+               "syslog_hostname": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "syslog_timestamp": {
+                  "type": "string"
+               },
+               "vlan": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               }
+            }
+         }
+      }
+}'

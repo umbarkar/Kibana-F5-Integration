@@ -1,0 +1,72 @@
+curl -XPUT localhost:9200/_template/bigip.logs -d '
+{
+    "template" : "bigip.logs*",
+    "settings" : {
+        "number_of_shards" : 4
+    },
+ "mappings": {
+         "logs": {
+            "properties": {
+               "@timestamp": {
+                  "type": "date",
+                  "format": "strict_date_optional_time||epoch_millis"
+               },
+               "@version": {
+                  "type": "string"
+               },
+               "host": {
+                  "type": "string"
+               },
+               "message": {
+                  "type": "string"
+               },
+               "path": {
+                  "type": "string"
+               },
+               "syslog_hostname": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "syslog_message": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+              "syslog_program": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "syslog_severity": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "syslog_timestamp": {
+                  "type": "string"
+               }
+            }
+         }
+      }
+}'

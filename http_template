@@ -1,0 +1,102 @@
+curl -XPUT localhost:9200/_template/http.logs -d '
+{
+    "template" : "http.logs*",
+    "settings" : {
+        "number_of_shards" : 4
+    },
+ "mappings": {
+         "logs": {
+            "properties": {
+                              "@timestamp": {
+                  "type": "date",
+                  "format": "strict_date_optional_time||epoch_millis"
+               },
+               "@version": {
+                  "type": "string"
+               },
+               "agent": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "bytes_received": {
+                  "type": "integer"
+               },
+               "client_ip": {
+                  "type": "ip"
+               },
+               "client_port": {
+                  "type": "string"
+               },
+               "host": {
+                  "type": "string"
+               },
+               "http_status": {
+                  "type": "string"
+               },
+               "http_version": {
+                  "type": "string"
+               },
+               "message": {
+                  "type": "string"
+               },
+               "path": {
+                  "type": "string"
+               },
+               "referrer": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "response_time": {
+                  "type": "integer"
+               },
+               "server_ip": {
+                  "type": "ip"
+               },
+               "server_port": {
+                  "type": "string"
+               },
+               "syslog_hostname": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "syslog_timestamp": {
+                  "type": "string"
+               },
+               "uri_path": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "virtual_port": {
+                  "type": "string"
+               },
+               "vitual_ip": {
+                  "type": "ip"
+               }
+            }
+         }
+      }
+}'
