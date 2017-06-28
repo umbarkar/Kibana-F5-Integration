@@ -11,16 +11,16 @@ curl -XPUT localhost:9200/_template/dns.logs -d '
                   "type": "date",
                   "format": "strict_date_optional_time||epoch_millis"
                },
+               "@version": {
+                  "type": "string"
+               },
                "host": {
                   "type": "string"
                },
                "message": {
                   "type": "string"
                },
-               "client_ip": {
-                  "type": "ip"
-               },
-               "query_id": {
+               "path": {
                   "type": "string"
                },
                "syslog_hostname": {
@@ -32,8 +32,14 @@ curl -XPUT localhost:9200/_template/dns.logs -d '
                             "index": "not_analyzed"
                         }
                     }
-               },              
-               "syslog_message": {
+               },
+               "Subscriber": {
+                  "type": "ip"
+               },
+              "port": {
+                  "type": "integer"
+               },
+               "Query": {
                   "type": "string",
                     "analyzer": "english",
                     "fields": {
@@ -43,7 +49,27 @@ curl -XPUT localhost:9200/_template/dns.logs -d '
                         }
                     }
                },
-               "syslog_timestamp": {
+              "QueryType": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "DNS_response": {
+                  "type": "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "raw": { 
+                            "type":  "string",
+                            "index": "not_analyzed"
+                        }
+                    }
+               },
+               "timestamp": {
                   "type": "string"
                }
             }
